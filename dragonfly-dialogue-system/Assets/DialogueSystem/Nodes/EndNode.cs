@@ -8,6 +8,6 @@ public class EndNode : BaseNode
     
     public override void ParseNode(ConversationGraph conversationGraph)
     {
-        
+        DialogueManager.Instance.EndConversation();
     }
 }

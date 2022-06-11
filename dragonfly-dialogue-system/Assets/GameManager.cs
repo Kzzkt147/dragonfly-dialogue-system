@@ -15,4 +15,9 @@ public class GameManager : MonoBehaviour
 
         _playerController = FindObjectOfType<PlayerController>();
     }
+
+    public void EnablePlayerController(bool enable)
+    {
+        _playerController.EnableMovement(enable);
+    }
 }

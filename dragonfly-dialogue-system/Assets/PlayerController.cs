@@ -7,11 +7,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask interactableLayers;
 
     private Vector2 _movement;
+    private bool _canMove = true;
 
     private Rigidbody2D _rigidbody;
 
+    public void EnableMovement(bool enable)
+    {
+        _canMove = enable;
+    }
+    
     private void Update()
     {
+        if (!_canMove) return;
         // movement
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.y = Input.GetAxisRaw("Vertical");
@@ -29,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_movement.magnitude != 0)
+        if (_movement.magnitude != 0 && _canMove)
         {
             _rigidbody.MovePosition(_rigidbody.position + _movement * (moveSpeed * Time.fixedDeltaTime));
         }
