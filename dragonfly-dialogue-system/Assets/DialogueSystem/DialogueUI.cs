@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,8 @@ public class DialogueUI : MonoBehaviour
     [Header("Names")]
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private TextMeshProUGUI npcNameText;
+    [SerializeField] private Image playerNamePanel;
+    [SerializeField] private Image npcNamePanel;
 
     [Header("Dialogue")] 
     [SerializeField] private GameObject dialogueScreenObject;
@@ -24,6 +25,26 @@ public class DialogueUI : MonoBehaviour
     public void EnableDialogue(bool enable)
     {
         dialogueUIObject.SetActive(enable);
+    }
+
+    public void SetCurrentSpeaker(bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            playerNamePanel.color = Color.green;
+            npcNamePanel.color = Color.white;
+        }
+        else
+        {
+            playerNamePanel.color = Color.white;
+            npcNamePanel.color = Color.green;
+        }
+    }
+
+    public void SetSpeakerText(string playerName, string speakerName)
+    {
+        playerNameText.text = playerName;
+        npcNameText.text = speakerName;
     }
 
     public void EnableDialogueScreen(bool enable)
@@ -51,8 +72,9 @@ public class DialogueUI : MonoBehaviour
         onFinishedTyping?.Invoke();
     }
 
-    public void SetText(string dialogue)
+    public void SetDialogue(string dialogue, Action onFinishedTyping)
     {
         dialogueText.text = dialogue;
+        onFinishedTyping?.Invoke();
     }
 }

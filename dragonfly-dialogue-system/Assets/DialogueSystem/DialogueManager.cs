@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(DialogueUI))]
@@ -9,13 +6,16 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
     
-    public enum DialogueState{TextTyping, TextFinished, Choice}
+    public enum DialogueState{NoState, TextTyping, TextFinished, Choice}
     public DialogueState state;
 
     private Action _onFinishedTyping;
 
     private DialogueUI _dialogueUI;
     private ConversationGraph _activeConversation;
+
+    private string _lastSavedDialogue;
+    private bool _hasReadFirstDialogue = false;
 
     private void Awake()
     {
@@ -24,11 +24,12 @@ public class DialogueManager : MonoBehaviour
 
         _onFinishedTyping = FinishTyping;
 
-        state = DialogueState.TextTyping;
+        state = DialogueState.NoState;
     }
 
     public void StartConversation(ConversationGraph conversationGraph)
     {
+        _hasReadFirstDialogue = false;
         GameManager.Instance.EnablePlayerController(false);
         
         _activeConversation = conversationGraph;
@@ -39,15 +40,28 @@ public class DialogueManager : MonoBehaviour
     public void EndConversation()
     {
         GameManager.Instance.EnablePlayerController(true);
-        
+
+        state = DialogueState.NoState;
         _dialogueUI.EnableDialogue(false);
         _activeConversation = null;
     }
 
     public void PlayDialogueLine(string dialogue, int lettersPerSecond)
     {
-        state = DialogueState.TextTyping;
+        _lastSavedDialogue = dialogue;
+        
         StartCoroutine(_dialogueUI.TypeDialogue(dialogue, lettersPerSecond, _onFinishedTyping));
+        state = DialogueState.TextTyping;
+    }
+
+    public void UpdateCurrentSpeaker(bool isPlayer)
+    {
+        _dialogueUI.SetCurrentSpeaker(isPlayer);
+    }
+
+    public void SetSpeakerText(string playerName, string speakerName)
+    {
+        _dialogueUI.SetSpeakerText(playerName, speakerName);
     }
 
     private void FinishTyping()
@@ -59,11 +73,19 @@ public class DialogueManager : MonoBehaviour
     {
         switch (state)
         {
+            case DialogueState.NoState:
+                break;
             case DialogueState.TextTyping:
+                if (Input.GetKeyDown(KeyCode.E) && _hasReadFirstDialogue)
+                {
+                    StopAllCoroutines();
+                    _dialogueUI.SetDialogue(_lastSavedDialogue, _onFinishedTyping);
+                }
                 break;
             case DialogueState.TextFinished:
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    _hasReadFirstDialogue = true;
                     _activeConversation.NextNode("exit");
                 }
                 break;

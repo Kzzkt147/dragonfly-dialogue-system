@@ -5,8 +5,7 @@ using UnityEngine;
 public class DialogueNode : BaseNode
 {
     [Input] public int entry;
-
-    [SerializeField] private string speakerName;
+    
     [SerializeField] private bool isPlayerSpeaking;
     
     [TextArea]
@@ -18,6 +17,7 @@ public class DialogueNode : BaseNode
     
     public override void ParseNode(ConversationGraph conversationGraph)
     {
+        DialogueManager.Instance.UpdateCurrentSpeaker(isPlayerSpeaking);
         DialogueManager.Instance.PlayDialogueLine(dialogue, lettersPerSecond);
     }
 }
