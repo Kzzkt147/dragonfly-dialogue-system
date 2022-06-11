@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b329120e22cac74b8e31ddc251ac379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversationGraph: {fileID: 11400000, guid: 404fd55253b8cb44c9f91c11062b9e5b, type: 2}
+  conversationGraph: {fileID: 11400000, guid: a9a6d02c68c2bc64fabc60acb2658e08, type: 2}
 --- !u!58 &1072094562
 CircleCollider2D:
   m_ObjectHideFlags: 0
