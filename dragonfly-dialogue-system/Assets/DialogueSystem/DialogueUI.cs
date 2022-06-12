@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,25 +55,14 @@ public class DialogueUI : MonoBehaviour
         choiceScreenObject.SetActive(!enable);
     }
     
-    public void EnableChoiceScreen(bool enable, string choice0, string choice1, string choice2)
+    public void EnableChoiceScreen(bool enable, List<string> choices)
     {
         dialogueScreenObject.SetActive(!enable);
         choiceScreenObject.SetActive(enable);
-        
-        for (var i = 0; i < choiceButtons.Length; i++)
+
+        for (var i = 0; i < choices.Count; i++)
         {
-            switch (i)
-            {
-                case 0:
-                    choiceButtons[i].UpdateButtonText(choice0);
-                    break;
-                case 1:
-                    choiceButtons[i].UpdateButtonText(choice1);
-                    break;
-                case 2:
-                    choiceButtons[i].UpdateButtonText(choice2);
-                    break;
-            }
+            choiceButtons[i].UpdateButtonText(choices[i]);
         }
     }
 

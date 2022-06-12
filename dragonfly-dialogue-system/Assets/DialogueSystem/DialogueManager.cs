@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DialogueUI))]
@@ -67,9 +68,9 @@ public class DialogueManager : MonoBehaviour
         _dialogueUI.SetSpeakerText(playerName, speakerName);
     }
 
-    public void StartChoice(string choice0, string choice1, string choice2)
+    public void StartChoice(List<string> choices)
     {
-        _dialogueUI.EnableChoiceScreen(true, choice0, choice1, choice2);
+        _dialogueUI.EnableChoiceScreen(true, choices);
         _selectedButtonIndex = 0;
         _dialogueUI.SelectButton(_selectedButtonIndex);
         state = DialogueState.Choice;
@@ -110,13 +111,16 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleChoice()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            if (_selectedButtonIndex >= 2) return;
+            var choiceNode = _activeConversation.currentNode as ChoiceNode;
+            var numberOfButtons = choiceNode.choices.Count;
+            
+            if (_selectedButtonIndex >= numberOfButtons - 1) return;
             _selectedButtonIndex += 1;
             _dialogueUI.SelectButton(_selectedButtonIndex);
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             if (_selectedButtonIndex <= 0) return;
             _selectedButtonIndex -= 1;
@@ -125,7 +129,7 @@ public class DialogueManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _activeConversation.NextNode("exit" + _selectedButtonIndex);
+            _activeConversation.NextNode("choices " + _selectedButtonIndex);
         }
     }
 }
