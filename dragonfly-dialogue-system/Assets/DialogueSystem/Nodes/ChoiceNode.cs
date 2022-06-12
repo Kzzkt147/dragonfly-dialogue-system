@@ -28,6 +28,7 @@ public class ChoiceNode : BaseNode
 
     private void Awake()
     {
+        if (choices == null) return;
         if (choices.Count > 3)
         {
             choices.RemoveRange(3, choices.Count - 3);
