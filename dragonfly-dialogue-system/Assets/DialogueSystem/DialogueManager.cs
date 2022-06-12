@@ -17,6 +17,8 @@ public class DialogueManager : MonoBehaviour
     private string _lastSavedDialogue;
     private bool _hasReadFirstDialogue = false;
 
+    private int _selectedButtonIndex = 0;
+
     private void Awake()
     {
         Instance = this;
@@ -49,9 +51,10 @@ public class DialogueManager : MonoBehaviour
     public void PlayDialogueLine(string dialogue, int lettersPerSecond)
     {
         _lastSavedDialogue = dialogue;
+        _dialogueUI.EnableDialogueScreen(true);
         
-        StartCoroutine(_dialogueUI.TypeDialogue(dialogue, lettersPerSecond, _onFinishedTyping));
         state = DialogueState.TextTyping;
+        StartCoroutine(_dialogueUI.TypeDialogue(dialogue, lettersPerSecond, _onFinishedTyping));
     }
 
     public void UpdateCurrentSpeaker(bool isPlayer)
@@ -62,6 +65,14 @@ public class DialogueManager : MonoBehaviour
     public void SetSpeakerText(string playerName, string speakerName)
     {
         _dialogueUI.SetSpeakerText(playerName, speakerName);
+    }
+
+    public void StartChoice(string choice0, string choice1, string choice2)
+    {
+        _dialogueUI.EnableChoiceScreen(true, choice0, choice1, choice2);
+        _selectedButtonIndex = 0;
+        _dialogueUI.SelectButton(_selectedButtonIndex);
+        state = DialogueState.Choice;
     }
 
     private void FinishTyping()
@@ -90,9 +101,31 @@ public class DialogueManager : MonoBehaviour
                 }
                 break;
             case DialogueState.Choice:
+                HandleChoice();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void HandleChoice()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (_selectedButtonIndex >= 2) return;
+            _selectedButtonIndex += 1;
+            _dialogueUI.SelectButton(_selectedButtonIndex);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (_selectedButtonIndex <= 0) return;
+            _selectedButtonIndex -= 1;
+            _dialogueUI.SelectButton(_selectedButtonIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _activeConversation.NextNode("exit" + _selectedButtonIndex);
         }
     }
 }
