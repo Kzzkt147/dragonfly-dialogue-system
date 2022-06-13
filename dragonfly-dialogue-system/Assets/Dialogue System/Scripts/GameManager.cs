@@ -7,17 +7,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private PlayerController _playerController;
+    [SerializeField] PlayerController playerController;
 
     private void Awake()
     {
         Instance = this;
-
-        _playerController = FindObjectOfType<PlayerController>();
     }
 
     public void EnablePlayerController(bool enable)
     {
-        _playerController.EnableMovement(enable);
+        if (playerController == null) return;
+        playerController.EnableMovement(enable);
     }
 }
