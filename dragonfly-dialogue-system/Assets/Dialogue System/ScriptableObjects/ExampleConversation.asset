@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62ce31e43fd8597458e26b543a28b2c6, type: 3}
-  m_Name: New Conversation Graph
+  m_Name: ExampleConversation
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 3844244334784462778}
