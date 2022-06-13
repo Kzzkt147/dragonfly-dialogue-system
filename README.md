@@ -50,5 +50,5 @@ Changing the looks of the dialogue UI is just a matter of replacing images with 
 
 ## To-Do
 
-- [ ] Make dialogue system unable to start a new dialogue when dialogue is already active / (Move responsibility from player/manager --> dialogue system)
+- [X] Make dialogue system unable to start a new dialogue when dialogue is already active / (Move responsibility from GameManager/Player --> dialogue system)
 - [ ] Refactor Code
