@@ -73,3 +73,4 @@ Changing the looks of the dialogue UI is just a matter of replacing images with 
 - [X] This readme :)
 - [X] Make dialogue system unable to start a new dialogue when dialogue is already active / (Move responsibility from GameManager/Player --> dialogue system)
 - [ ] Refactor Code
+- [ ] Strengthen with use of events to allow for more customization.
