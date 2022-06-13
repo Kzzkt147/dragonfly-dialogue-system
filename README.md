@@ -21,6 +21,23 @@ Download the unity package and install into your unity project. If your project 
 
 ## How it works
 
+### Creating a new conversation
+
+Right click in your assets folder `Create/Conversation Graph`. Double click to open it.
+
+You can right click in the graph editor to create a new node.
+
+***Start*** - The Start Node indicateds to the graph where to begin from. You can also set the Player and Speaker Name here. It will also invoke the onDialogueStart unity event.
+
+***Dialogue*** - The Dialogue Node will write out any string you input into the dialogue window. You can indicate whether it is the player speaking and how quickly the text should type out.
+
+***Choice*** - The Choices Node will show a choice screen in the dialogue window. Add up to 3 choices - and connect each choice to something different if you wish.
+
+***End*** - The End Node will close the dialogue. It will also invoke the onDialogueEnd unity event.
+
+![ExampleNodes](https://user-images.githubusercontent.com/79820324/173321432-449eb468-8826-425e-9d9e-92b5c0a87bbe.PNG)
+
+
 ### Example Scene
 
 In the example scene, there is a `DialogueManager`, `PlayerController`, and `NPC`.
@@ -50,5 +67,6 @@ Changing the looks of the dialogue UI is just a matter of replacing images with 
 
 ## To-Do
 
+- [X] This readme :)
 - [X] Make dialogue system unable to start a new dialogue when dialogue is already active / (Move responsibility from GameManager/Player --> dialogue system)
 - [ ] Refactor Code
