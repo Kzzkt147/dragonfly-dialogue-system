@@ -73,6 +73,7 @@ public class DialogueManager : MonoBehaviour
         _dialogueUI.EnableChoiceScreen(true, choices);
         _selectedButtonIndex = 0;
         _dialogueUI.SelectButton(_selectedButtonIndex);
+        UpdateCurrentSpeaker(true);
         state = DialogueState.Choice;
     }
 
