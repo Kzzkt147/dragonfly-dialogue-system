@@ -15,5 +15,33 @@ A node-based branching dialogue system for creating custom dialogue with branchi
 ### Installation
 Download the unity package and install into your unity project. If your project does not have TextMeshPro installed - it will prompt you to install it whenever text should appear on screen.
   
-</detials>
+</details>
 
+# How it works
+
+### Example Scene
+
+In the example scene, there is a simple `PlayerController`, `GameManager`, and `NPC`.
+
+`PlayerController` will handle movement and interacting with things with 'E'.
+
+`GameManager` will handle disabling player movement when dialogue is active.
+
+`NPC` will start the dialogue system by calling the `DialogueManager.Instance.StartConversation(conversationGraph)`, passing in a refernce to a conversation graph.
+
+**NOTE: The player will only interact with NPC's that are on the same layer sepcified in the inspector - you may wish to make sure this is set / change it if you are importing into a fresh project**
+
+### If you wish to create this in your own scene
+
+Drag in the `Dialogue System` prefab into your heirarchy. This will control all of the dialogue.
+
+To start the dialogue system in script, simply call `DialogueManager.Instance.StartConversation(conversationGraph)`. You may want to do this on your own NPC script and give that script a reference to a `ConversationGraph` via the inspector.
+
+(If you are creating your own player scripts and interaction system, make sure to have some way to disable player movement and interaction when dialogue is active)
+
+Changing the looks of the dialogue UI is just a matter of replacing images with your own UI assets.
+
+# To-Do
+
+- [ ] Make dialogue system unable to start a new dialogue when dialogue is already active / (Move responsibility from player/manager --> dialogue system)
+- [ ] Refactor Code
