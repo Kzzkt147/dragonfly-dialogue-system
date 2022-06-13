@@ -17,7 +17,9 @@ Download the unity package and install into your unity project. If your project 
   
 </details>
 
-# How it works
+<br>
+
+## How it works
 
 ### Example Scene
 
@@ -31,17 +33,24 @@ In the example scene, there is a simple `PlayerController`, `GameManager`, and `
 
 **NOTE: The player will only interact with NPC's that are on the same layer sepcified in the inspector - you may wish to make sure this is set / change it if you are importing into a fresh project**
 
+
 ### If you wish to create this in your own scene
 
 Drag in the `Dialogue System` prefab into your heirarchy. This will control all of the dialogue.
 
-To start the dialogue system in script, simply call `DialogueManager.Instance.StartConversation(conversationGraph)`. You may want to do this on your own NPC script and give that script a reference to a `ConversationGraph` via the inspector.
+To start the dialogue system in script, simply call 
+```cs
+DialogueManager.Instance.StartConversation(conversationGraph)
+```
+You may want to do this on your own NPC script and give that script a reference to a `ConversationGraph` via the inspector.
 
 (If you are creating your own player scripts and interaction system, make sure to have some way to disable player movement and interaction when dialogue is active)
 
 Changing the looks of the dialogue UI is just a matter of replacing images with your own UI assets.
 
-# To-Do
+<br>
+
+## To-Do
 
 - [ ] Make dialogue system unable to start a new dialogue when dialogue is already active / (Move responsibility from player/manager --> dialogue system)
 - [ ] Refactor Code
