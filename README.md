@@ -59,7 +59,10 @@ DialogueManager.Instance.StartConversation(conversationGraph)
 ```
 You may want to do this on your own NPC script and give that script a reference to a `ConversationGraph` via the inspector.
 
-(If you are creating your own player scripts and interaction system, you should disable movement and interaction via the UnityEvents on the `DialogueManager`.
+If you are using the example Player and NPC to start the dialogue, then drag in the Player Prefab and the NPC Prefab. Assign a layer to the NPC object and set that layer in the player's layermask field.
+
+To disable player movment when the dialogue is active, call the player's DisableControl/EnableControl methods from the UnityEvents on the `DialogueManager`.
+
 
 Changing the looks of the dialogue UI is just a matter of replacing images with your own UI assets.
 
