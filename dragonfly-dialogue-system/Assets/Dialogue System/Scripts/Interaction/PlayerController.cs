@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,8 +14,19 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    public void EnableMovement(bool enable)
+    public void EnableControl()
     {
+        StartCoroutine(EnablePlayerControlAfterFrame(true));
+    }
+
+    public void DisableControl()
+    {
+        StartCoroutine(EnablePlayerControlAfterFrame(false));
+    }
+
+    private IEnumerator EnablePlayerControlAfterFrame(bool enable)
+    {
+        yield return new WaitForEndOfFrame();
         _canMove = enable;
     }
     

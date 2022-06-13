@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(DialogueUI))]
 public class DialogueManager : MonoBehaviour
@@ -9,6 +11,9 @@ public class DialogueManager : MonoBehaviour
     
     public enum DialogueState{NoState, TextTyping, TextFinished, Choice}
     public DialogueState state;
+
+    [SerializeField] private UnityEvent onDialogueStart;
+    [SerializeField] private UnityEvent onDialogueEnd;
 
     private Action _onFinishedTyping;
 
@@ -32,8 +37,9 @@ public class DialogueManager : MonoBehaviour
 
     public void StartConversation(ConversationGraph conversationGraph)
     {
+        if (state != DialogueState.NoState) return;
         _hasReadFirstDialogue = false;
-        GameManager.Instance.EnablePlayerController(false);
+        onDialogueStart?.Invoke();
         
         _activeConversation = conversationGraph;
         _dialogueUI.EnableDialogue(true);
@@ -42,8 +48,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndConversation()
     {
-        GameManager.Instance.EnablePlayerController(true);
-
+        onDialogueEnd?.Invoke();
         state = DialogueState.NoState;
         _dialogueUI.EnableDialogue(false);
         _activeConversation = null;

@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: End
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 3128, y: 40}
+  position: {x: 3096, y: 24}
   ports:
     keys:
     - exit
@@ -154,7 +154,7 @@ MonoBehaviour:
   - {fileID: -3258195396317386189}
   - {fileID: -1694054693398073376}
   - {fileID: 6391559717571553479}
-  currentNode: {fileID: -3258195396317386189}
+  currentNode: {fileID: 2180834017533941642}
 --- !u!114 &2180834017533941642
 MonoBehaviour:
   m_ObjectHideFlags: 0
